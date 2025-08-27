@@ -7,6 +7,22 @@
 
 import SwiftUI
 
+extension Image {
+    func imageModifier() -> some View {
+        self
+            .resizable()
+            .scaledToFit()
+    }
+    
+    func iconModifier() -> some View {
+        self
+            .imageModifier()
+            .frame(maxWidth: 128)
+            .foregroundColor(.gray)
+            .opacity(0.5)
+    }
+}
+
 struct ContentView: View {
     private let imageURL: String = "https://credo.academy/credo-academy@3x.png"
     
@@ -20,16 +36,9 @@ struct ContentView: View {
             
             // MARK: -3. PLACEHOLDER
             AsyncImage(url: URL(string:imageURL)) { image in
-                image
-                    .resizable()
-                    .scaledToFit()
+                image.imageModifier()
             } placeholder: {
-                Image(systemName: "photo.circle.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: 128)
-                    .foregroundColor(.gray)
-                    .opacity(0.5)
+                Image(systemName: "photo.circle.fill").iconModifier()
             }
             .padding(40)
         }
